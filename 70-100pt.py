@@ -11,9 +11,9 @@ root = Tk()
 drawpad = Canvas(root, width=800,height=600, background='white')
 player = drawpad.create_oval(390,580,410,600, fill="blue")
 enemy = drawpad.create_rectangle(50,50,100,60, fill="red")
-
 direction = 5
-
+        
+            
 class myApp(object):
     def __init__(self, parent):
         
@@ -51,13 +51,33 @@ class myApp(object):
         drawpad.move(enemy, direction, 0)
         drawpad.after(5,self.animate)
 
+                
     def key(self,event):
         global player
+        x1,y1,x2,y2 = drawpad.coords(enemy)
+
+        
         if event.char == "w":
-            drawpad.move(player,0,-4)
+           if y1 > 0:
+                drawpad.move(player,0,-4)
+            
+        if event.char == "a":
+            if x1 > 0:
+                drawpad.move(player,-4,0)
+            
+        if event.char == "s":
+            if y2 < 600:
+                drawpad.move(player,0,4)
+            
+        if event.char == "d":
+            if x2 < 800:
+                drawpad.move(player,4,0)
         
     def collisionDetect(self,rocket):
         rx1,ry1,rx2,ry2 = drawpad.coords(rocket)
+        
+             
+    
         
 
 app = myApp(root)
